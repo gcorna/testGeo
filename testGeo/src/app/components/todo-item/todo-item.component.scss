@@ -1,0 +1,15 @@
+@import "../../app.component.scss";
+
+.mat-list-item-content {
+    justify-content: space-between;
+}
+
+.red {
+    color: $color-red;
+}
+.green {
+    color: $color-green;
+}
+.orange {
+    color: $color-orange;
+}

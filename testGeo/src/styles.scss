@@ -1,0 +1,16 @@
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: lightgrey;
+}
+
+#principal {
+    width: 50%;
+    margin: 0 auto;
+}
+.fill-remaining-space {
+    flex: 1 1 auto;
+}

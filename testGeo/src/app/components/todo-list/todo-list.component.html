@@ -1,0 +1,38 @@
+
+  <mat-toolbar color="primary">
+    <span>Todo List</span>
+    <span class="fill-remaining-space"></span>
+    <span>
+      <button mat-mini-fab>
+        <mat-icon aria-label="Add-new">add_circle_outline</mat-icon>
+      </button>
+    </span>
+  </mat-toolbar>
+  {{todoList}}
+  <mat-card-content>
+    <mat-selection-list role="list" *ngFor="let todo of todoList">
+
+        <mat-list-item role="listitem">
+            <mat-checkbox [checked]="todo.status"> {{todo.title}} </mat-checkbox>
+            <span class="fill-remaining-space"></span>
+            <span>
+              <button mat-icon-button>
+                <mat-icon aria-label="Priority" [ngClass]="todo.priority" (click)="togglePriority()">fiber_manual_record</mat-icon>
+              </button>|
+              <button mat-icon-button>
+                <mat-icon aria-label="Edit Todo" (click)="editTodo()">edit</mat-icon>
+              </button>
+              <button mat-icon-button>
+                <mat-icon aria-label="Remove Todo" (click)="removeTodo()">delete</mat-icon>
+              </button>|
+              <button mat-icon-button>
+                  <mat-icon aria-label="See">launch</mat-icon>
+              </button>
+            </span>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+          
+
+      <app-todo-item  [todo]="todo" *ngFor="let todo of todoListValues"></app-todo-item>
+    </mat-selection-list>
+  </mat-card-content>
