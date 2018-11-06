@@ -70,13 +70,16 @@ export function todoReducer(state: TodoList = defaultData, action: TodoActions.A
       return newState;
     }
 
-    case TodoActions.SET_STATUS: { // Move item down the list if crossed out
+    case TodoActions.SET_STATUS: { // Move item down the list if crossed out or on top if uncrossed
       let newState = [...state];
       newState[action.payload].status = !newState[action.payload].status;
+      const item = newState[action.payload];
+      const allItem = [...state.slice(0, action.payload), ...state.slice(action.payload + 1)];
+
       if (newState[action.payload].status === true) {
-        const item = newState[action.payload];
-        const allItem = [...state.slice(0, action.payload), ...state.slice(action.payload + 1)];
         newState = [...allItem, item];
+      } else {
+        newState = [item, ...allItem];
       }
       return newState;
     }
