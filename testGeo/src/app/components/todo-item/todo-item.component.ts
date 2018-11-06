@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Todo } from '../../models/todo';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Todo } from 'src/app/models';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.state';
+import * as TodoActions from '../../store/actions/todo.actions';
 
 @Component({
   selector: 'app-todo-item',
@@ -7,17 +10,33 @@ import { Todo } from '../../models/todo';
   styleUrls: ['./todo-item.component.scss']
 })
 export class TodoItemComponent implements OnInit {
+
   @Input() todo: Todo;
+  @Input() index: number;
+  @Input() allOff: boolean;
 
-  constructor() { }
+  @Output() open = new EventEmitter<number>();
 
-  ngOnInit() {
-    console.log(this.todo);
+  title: string;
+  description: string;
+
+  constructor(private store: Store<AppState>) {}
+
+  ngOnInit() {}
+
+  editTodo() {
+    this.store.dispatch(new TodoActions.EditTodo(this.index));
   }
 
-  editTodo() {}
+  togglePriority() {
+    this.store.dispatch(new TodoActions.SetPriority(this.index));
+  }
 
-  togglePriority() {}
+  removeTodo() {
+    this.store.dispatch(new TodoActions.RemoveTodo(this.index));
+  }
 
-  removeTodo() {}
+  toggleStatus() {
+    this.store.dispatch(new TodoActions.SetStatus(this.index));
+  }
 }

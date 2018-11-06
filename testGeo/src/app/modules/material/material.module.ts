@@ -7,6 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule, MAT_CHECKBOX_CLICK_ACTION } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -17,7 +20,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule
   ],
   exports: [
     CommonModule,
@@ -27,7 +33,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
-    BrowserAnimationsModule
-  ]
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule
+  ],
+  providers: [{provide: MAT_CHECKBOX_CLICK_ACTION, useValue: 'noop'}]
 })
 export class MaterialModule { }

@@ -13,3 +13,9 @@
 .orange {
     color: $color-orange;
 }
+button:disabled .mat-icon{
+    color: gray;
+}
+.done {
+    text-decoration: line-through;
+}

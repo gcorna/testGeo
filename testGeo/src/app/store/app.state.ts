@@ -1,5 +1,7 @@
-import { Todo } from '../models/todo';
+import { TodoList } from '../models';
 
 export interface AppState {
-  readonly todo: Todo[];
+  readonly todo: TodoList;
+  readonly loading?: boolean;
+  readonly error?: string;
 }

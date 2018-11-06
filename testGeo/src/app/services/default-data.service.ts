@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Todo } from '../models/todo';
+import { TodoList } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,7 @@ export class DefaultDataService {
     },
   ];
 
-  public getDefaultData(): Todo[] {
+  public getDefaultData(): TodoList {
     return this.defaultData;
   }
 

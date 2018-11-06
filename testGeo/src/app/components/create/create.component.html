@@ -1,0 +1,15 @@
+<mat-card @fadeIn>
+  <p>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Title" #title>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field class="full-width">
+      <textarea matInput placeholder="Description" #description></textarea>
+    </mat-form-field>
+  </p>
+  <p class="right">
+    <button mat-flat-button color="primary" (click)="addTodo(title.value, description.value)">{{buttonText}}</button>
+  </p>
+</mat-card>

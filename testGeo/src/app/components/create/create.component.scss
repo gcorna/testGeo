@@ -1,0 +1,16 @@
+mat-card {
+  background: dimgray;
+  margin-top: 20px;
+}
+
+:host {
+  display: block;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.right {
+  text-align: right;
+}

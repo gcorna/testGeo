@@ -1,18 +1,18 @@
-<mat-list-item role="listitem">
-  <mat-checkbox [checked]="todo.status"> {{todo.title}} </mat-checkbox>
+<mat-list-item>
+  <mat-checkbox [checked]="todo.status" [ngClass]="{'done': todo.status}" (click)="toggleStatus(i)" [disabled]="allOff"> {{todo.title}} </mat-checkbox>
   <span class="fill-remaining-space"></span>
   <span>
-    <button mat-icon-button>
-      <mat-icon aria-label="Priority" [ngClass]="todo.priority" (click)="togglePriority()">fiber_manual_record</mat-icon>
+    <button mat-icon-button (click)="togglePriority(i)" [disabled]="allOff">
+      <mat-icon aria-label="Priority" [ngClass]="todo.priority" >fiber_manual_record</mat-icon>
     </button>|
-    <button mat-icon-button>
-      <mat-icon aria-label="Edit Todo" (click)="editTodo()">edit</mat-icon>
+    <button mat-icon-button  (click)="editTodo(i)" [disabled]="allOff">
+      <mat-icon aria-label="Edit Todo">edit</mat-icon>
     </button>
-    <button mat-icon-button>
-      <mat-icon aria-label="Remove Todo" (click)="removeTodo()">delete</mat-icon>
+    <button mat-icon-button  (click)="removeTodo(i)" [disabled]=allOff>
+      <mat-icon aria-label="Remove Todo">delete</mat-icon>
     </button>|
-    <button mat-icon-button>
-        <mat-icon aria-label="See">launch</mat-icon>
+    <button mat-icon-button [routerLink]="['/todo', index]" [disabled]='allOff'>
+      <mat-icon aria-label="Open">launch</mat-icon>
     </button>
   </span>
   <mat-divider></mat-divider>
