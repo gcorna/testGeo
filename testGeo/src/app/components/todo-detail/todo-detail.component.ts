@@ -4,7 +4,6 @@ import { AppState } from '../../store/app.state';
 import * as TodoActions from '../../store/actions/todo.actions';
 import { Todo, TodoList } from 'src/app/models';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todo-detail',

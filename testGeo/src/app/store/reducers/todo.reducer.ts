@@ -32,11 +32,6 @@ export function todoReducer(state: TodoList = defaultData, action: TodoActions.A
 
   switch (action.type) {
 
-    // case TodoActions.LOAD_TODO: {
-    //   console.log(action.payload);
-    //   return {...state, todoList: action.payload};
-    // }
-
     case TodoActions.ADD_TODO: {
       return [action.payload, ...state];
     }
@@ -45,14 +40,6 @@ export function todoReducer(state: TodoList = defaultData, action: TodoActions.A
       const newState = [...state.slice(0, action.payload), ...state.slice(action.payload + 1)];
       return newState;
     }
-
-    // case TodoActions.TOGGLE_ADD_TODO: {
-    //   return {...state, action.payload};
-    // }
-
-    // case TodoActions.EDIT_TODO: {
-    //   return {...state, action.payload};
-    // }
 
     case TodoActions.SET_PRIORITY: {
       const newState = [...state];

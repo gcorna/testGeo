@@ -29,7 +29,7 @@ export class CreateComponent implements OnInit {
 
   constructor(private store: Store<AppState>, public snackBar: MatSnackBar) { }
 
-  addTodo(title, description) {
+  addTodo(title: string, description: string) {
     if (title !== '') {
       this.store.dispatch(new TodoActions.AddTodo({ title: title, description: description, priority: 'green', status: false }));
       this.closePanel.emit(false);
@@ -38,7 +38,6 @@ export class CreateComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

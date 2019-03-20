@@ -14,12 +14,6 @@ import { AppState } from '../../store/app.state';
 
 export class TodoListComponent implements OnInit {
 
-  @Input() edit: number;
-  @Input() remove: number;
-  @Input() open: number;
-  @Input() priority: number;
-  @Input() check: number;
-
   todoList: Observable<TodoList>;
   showAddTodo: boolean;
   buttonText: string;
@@ -36,7 +30,7 @@ export class TodoListComponent implements OnInit {
     this.store.dispatch({ type: ADD_TODO });
   }
 
-  onRemove(index) {
+  onRemove(index: number) {
     this.store.dispatch(new TodoActions.RemoveTodo(index) );
   }
 
@@ -50,5 +44,4 @@ export class TodoListComponent implements OnInit {
     this.showAddTodo = !this.showAddTodo;
     this.buttonText = action;
   }
-
 }
