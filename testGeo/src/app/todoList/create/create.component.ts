@@ -3,16 +3,13 @@ import { transition, style, animate, trigger } from '@angular/animations';
 import { MatSnackBar } from '@angular/material';
 
 import { Store } from '@ngrx/store';
-import { AppState } from '../../store/app.state';
+import { State } from '../../state/app.state';
 import * as TodoActions from '../../store/actions/todo.actions';
 
 export const FADEIN_ANIMATION = trigger('fadeIn', [
   transition(':enter', [
     style({ opacity: 0 }),
-    animate(
-      '500ms',
-      style({ opacity: 1 })
-    ),
+    animate('500ms', style({ opacity: 1 }))
   ])
 ]);
 
@@ -27,11 +24,11 @@ export class CreateComponent implements OnInit {
 
   @Output() closePanel = new EventEmitter<boolean>();
 
-  constructor(private store: Store<AppState>, public snackBar: MatSnackBar) { }
+  constructor(private store: Store<State>, public snackBar: MatSnackBar) { }
 
   addTodo(title: string, description: string) {
     if (title !== '') {
-      this.store.dispatch(new TodoActions.AddTodo({ title: title, description: description, priority: 'green', status: false }));
+      this.store.dispatch(new TodoActions.AddTodo({ id: null, title: title, description: description, priority: 'green', status: false }));
       this.closePanel.emit(false);
     } else {
       this.snackBar.open('Title cannot be empty !', '', {duration: 2000, verticalPosition: 'top' });

@@ -10,8 +10,10 @@ export const SET_STATUS = '[Todo] Set Status';
 export const LOAD_TODO = '[Todo] Load TodoList';
 export const LOAD_TODO_FAIL = '[Todo] Load TodoList Fail';
 export const LOAD_TODO_SUCCESS = '[Todo] Load TodoList Succes';
+export const UPDATE_TODO = '[Todo] Update TodoList';
+export const UPDATE_TODO_FAIL = '[Todo] Update TodoList Fail';
+export const UPDATE_TODO_SUCCESS = '[Todo] Update TodoList Success';
 export const TOGGLE_ADD_TODO = '[Todo] Toggle Add Todo';
-export const GO_TO_LIST = '[Todo] Go To TodoList';
 
 export class AddTodo implements Action {
     readonly type = ADD_TODO;
@@ -52,14 +54,22 @@ export class LoadTodoSuccess implements Action {
     constructor(public payload: Todo) { }
 }
 
+export class UpdateTodo implements Action {
+    readonly type = UPDATE_TODO;
+}
+
+export class UpdateTodoFail implements Action {
+    readonly type = UPDATE_TODO_FAIL;
+    constructor(public payload: any) { }
+}
+
+export class UpdateTodoSuccess implements Action {
+    readonly type = UPDATE_TODO_SUCCESS;
+    constructor(public payload: Todo) { }
+}
 export class ToggleAddTodo implements Action {
     readonly type = TOGGLE_ADD_TODO;
     constructor(public payload: Todo) { }
-}
-
-export class GoToList implements Action {
-    readonly type = GO_TO_LIST;
-
 }
 
 export type Actions
@@ -71,5 +81,7 @@ export type Actions
     | LoadTodo
     | LoadTodoFail
     | LoadTodoSuccess
-    | ToggleAddTodo
-    | GoToList;
+    | UpdateTodo
+    | UpdateTodoFail
+    | UpdateTodoSuccess
+    | ToggleAddTodo;

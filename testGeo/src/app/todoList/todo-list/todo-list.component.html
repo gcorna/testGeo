@@ -9,7 +9,7 @@
 </mat-toolbar>
 <app-create *ngIf="showAddTodo" [buttonText]="buttonText" (closePanel)="onClosePanel($event)"></app-create>
 <mat-card-content>
-  <mat-selection-list role="list" *ngFor="let todo of todoList | async; let i = index">
+  <mat-selection-list role="list" *ngFor="let todo of todoList; let i = index">
     <app-todo-item [allOff]="allOff" [todo]="todo" [index]="i" role="listitem" (remove)="onRemove($event)"></app-todo-item>
   </mat-selection-list>
 </mat-card-content>

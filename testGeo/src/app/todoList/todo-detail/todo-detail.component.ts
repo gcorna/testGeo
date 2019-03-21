@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../store/app.state';
+import { State } from '../../state/app.state';
 import * as TodoActions from '../../store/actions/todo.actions';
 import { Todo, TodoList } from 'src/app/models';
 import { ActivatedRoute } from '@angular/router';
@@ -16,14 +16,11 @@ export class TodoDetailComponent implements OnInit {
   index: number;
   todo: Todo;
 
-  constructor( private store: Store<AppState>, private route: ActivatedRoute ) {
+  constructor( private store: Store<State>, private route: ActivatedRoute ) {}
+
+  ngOnInit() {
     this.route.params.subscribe( params => { this.index = +params['id']; } );
-    this.store.select('todoList').subscribe((data: TodoList) => this.todo = data[this.index]);
-  }
+    // this.store.select('todoList').subscribe((data: TodoList) => this.todo = data[this.index]);
 
-  ngOnInit() {}
-
-  goToList() {
-    this.store.dispatch(new TodoActions.GoToList());
   }
 }

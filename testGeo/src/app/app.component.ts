@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from './store/app.state';
+import { State } from './state/app.state';
 import * as TodoActions from './store/actions/todo.actions';
 
 
@@ -13,7 +13,7 @@ import * as TodoActions from './store/actions/todo.actions';
 export class AppComponent implements OnInit {
   title = 'testTodo';
 
-  constructor( private store: Store<AppState> ) {}
+  constructor( private store: Store<State> ) {}
 
   ngOnInit() {
     this.store.dispatch( new TodoActions.LoadTodo() );

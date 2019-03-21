@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Todo } from 'src/app/models';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../store/app.state';
+import { State } from '../../state/app.state';
 import * as TodoActions from '../../store/actions/todo.actions';
 
 @Component({
@@ -20,7 +20,7 @@ export class TodoItemComponent implements OnInit {
   title: string;
   description: string;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<State>) {}
 
   ngOnInit() {}
 
