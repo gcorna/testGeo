@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Todo } from 'src/app/models';
 import { Store } from '@ngrx/store';
 import { State } from '../../state/app.state';
-import * as TodoActions from '../../store/actions/todo.actions';
+import * as TodoActions from '../state/todo.actions';
 
 @Component({
   selector: 'app-todo-item',

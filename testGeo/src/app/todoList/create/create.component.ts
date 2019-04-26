@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material';
 
 import { Store } from '@ngrx/store';
 import { State } from '../../state/app.state';
-import * as TodoActions from '../../store/actions/todo.actions';
+import * as TodoActions from '../state/todo.actions';
 
 export const FADEIN_ANIMATION = trigger('fadeIn', [
   transition(':enter', [

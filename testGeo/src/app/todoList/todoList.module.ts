@@ -8,15 +8,18 @@ import { CreateComponent } from './create/create.component';
 
 import { StoreModule } from '@ngrx/store';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from '../modules/material/material.module';
-import { todoReducer } from '../store/reducers/todo.reducer';
+import { MaterialModule } from './../material.module';
+import { reducer } from './state/todo.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { TodoEffects } from './state/todoList.effects';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild([]),
-    StoreModule.forFeature('todoList', todoReducer ),
     MaterialModule,
+    StoreModule.forFeature('todoList', reducer ),
+    EffectsModule.forFeature([TodoEffects])
   ],
   declarations: [
     TodoListComponent,

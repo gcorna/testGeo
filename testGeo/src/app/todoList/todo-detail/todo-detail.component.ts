@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { State } from '../../state/app.state';
-import * as TodoActions from '../../store/actions/todo.actions';
+import * as TodoActions from '../state/todo.actions';
 import { Todo, TodoList } from 'src/app/models';
 import { ActivatedRoute } from '@angular/router';
 

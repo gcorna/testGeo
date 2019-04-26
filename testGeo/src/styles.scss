@@ -5,11 +5,28 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-color: lightgrey;
+    box-sizing: border-box;
 }
 
 #principal {
-    width: 50%;
-    margin: 0 auto;
+    box-sizing: border-box;
+    width: 100%;
+    //margin: 0 auto;
+}
+
+
+@media screen and (max-width: 920px) and (min-width: 570px) {
+    #principal {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 920px) {
+    #principal {
+        width: 50%;
+        margin: 0 auto;
+    }
 }
 .fill-remaining-space {
     flex: 1 1 auto;
