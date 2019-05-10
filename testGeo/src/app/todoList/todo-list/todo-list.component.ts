@@ -27,7 +27,7 @@ export class TodoListComponent implements OnInit {
   ngOnInit() {
     this.store.pipe(select(fromTodoList.getTodos)).subscribe(
       todos => this.todoList = todos
-      );
+    );
 
     this.store.pipe(select(fromTodoList.getAllOf)).subscribe(
       allOf => this.allOff = allOf
@@ -36,7 +36,6 @@ export class TodoListComponent implements OnInit {
     this.store.pipe(select(fromTodoList.getShowPanel)).subscribe(
       showPanel => this.showPanel = showPanel
     );
-
   }
 
   onRemove(index: number) {
@@ -48,7 +47,7 @@ export class TodoListComponent implements OnInit {
     this.showPanel = false;
   }
 
-  openAddTodo() {
+  togglePanel() {
     this.store.dispatch(new TodoActions.TogglePanel(null) );
   }
 }
