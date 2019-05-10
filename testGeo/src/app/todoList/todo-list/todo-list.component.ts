@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { TodoList } from '../../models';
+import { TodoList, Todo } from '../../models';
 import { Store, select } from '@ngrx/store';
 import * as TodoActions from '../state/todo.actions';
 import * as fromTodoList from '../state/todo.reducer';
@@ -13,12 +13,12 @@ import * as fromTodoList from '../state/todo.reducer';
 export class TodoListComponent implements OnInit {
 
   todoList: TodoList;
-  showAddTodo: boolean;
+  showPanel: boolean;
   buttonText: string;
   allOff: boolean;
+  currentItemId: number;
 
   constructor(private store: Store<fromTodoList.State>) {
-    this.showAddTodo = false;
     this.store.dispatch( new TodoActions.LoadTodo());
     this.store.pipe(select(fromTodoList.getTodos))
     .subscribe((todoList: TodoList) => this.todoList = todoList);
@@ -28,10 +28,19 @@ export class TodoListComponent implements OnInit {
     this.store.pipe(select(fromTodoList.getTodos)).subscribe(
       todos => this.todoList = todos
       );
+
+    this.store.pipe(select(fromTodoList.getAllOf)).subscribe(
+      allOf => this.allOff = allOf
+    );
+
+    this.store.pipe(select(fromTodoList.getShowPanel)).subscribe(
+      showPanel => this.showPanel = showPanel
+    );
+
   }
 
-  addTodo(todo) {
-    this.store.dispatch(new TodoActions.AddTodo(todo));
+  addTodo(todo: Todo) {
+    this.store.dispatch(new TodoActions.CreateTodo(todo));
   }
 
   onRemove(index: number) {
@@ -40,12 +49,33 @@ export class TodoListComponent implements OnInit {
 
   onClosePanel() {
     this.allOff = !this.allOff;
-    this.showAddTodo = false;
+    this.showPanel = false;
   }
 
-  toggleShowAddTodo(action) {
+  openAddTodo() {
+    this.store.dispatch(new TodoActions.TogglePanel(null) );
+  }
+
+  openToEdit(todoId: number) {
     this.allOff = !this.allOff;
-    this.showAddTodo = !this.showAddTodo;
-    this.buttonText = action;
+    this.showPanel = true;
+    this.buttonText = 'Update';
+    this.store.dispatch(new TodoActions.EditTodo(todoId) );
+    console.log('openToEdit');
   }
 }
+
+// this.store.pipe(select(fromTodoList.getCurrentItemId)).subscribe(
+    //   todo => {
+    //     this.currentItemId = todo;
+    //     this.allOff = !this.allOff;
+    //     this.showPanel = !this.showPanel;
+    //     this.buttonText = action;
+    //     if (todo === null) {
+    //       // add todo
+    //       console.log('Add');
+    //     } else {
+    //       // update todo
+    //       console.log('Update');
+    //     }
+    //    });

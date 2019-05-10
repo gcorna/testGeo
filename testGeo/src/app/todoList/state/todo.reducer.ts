@@ -11,12 +11,18 @@ export interface TodoListState {
   currentItemId: number | null;
   todoList: Todo[];
   error: string;
+  allOf: boolean;
+  buttonText: string;
+  showPanel: boolean;
 }
 
 const initialState: TodoListState = {
   currentItemId: null,
   todoList: [],
-  error: ''
+  error: '',
+  allOf: false,
+  buttonText: 'Add',
+  showPanel: false
 };
 
 const getTodoListFeatureState = createFeatureSelector<TodoListState>('todoList');
@@ -36,19 +42,34 @@ export const getError = createSelector(
   state => state.error
 );
 
+export const getAllOf = createSelector(
+  getTodoListFeatureState,
+  state => state.allOf
+);
+
+export const getButtonText = createSelector(
+  getTodoListFeatureState,
+  state => state.buttonText
+);
+
+export const getShowPanel = createSelector(
+  getTodoListFeatureState,
+  state => state.showPanel
+);
+
 export function reducer(state = initialState, action: TodoActions.Actions): TodoListState {
 
   switch (action.type) {
 
-    case TodoActions.TodoActionTypes.AddTodo: {
-      action.payload.id = state.todoList.length;
-      return {
-        ...state,
-        todoList: [action.payload, ...state.todoList],
-        currentItemId: action.payload.id,
-        error: ''
-      };
-    }
+    // case TodoActions.TodoActionTypes.AddTodo: {
+    //   action.payload.id = action.payload.id === null ? state.todoList.length : action.payload.id;
+    //   return {
+    //     ...state,
+    //     todoList: [action.payload, ...state.todoList],
+    //     currentItemId: action.payload.id,
+    //     error: ''
+    //   };
+    // }
 
     case TodoActions.TodoActionTypes.RemoveTodo: {
       const newTodoList = [...state.todoList.slice(0, action.payload), ...state.todoList.slice(action.payload + 1)];
@@ -62,16 +83,16 @@ export function reducer(state = initialState, action: TodoActions.Actions): Todo
 
     case TodoActions.TodoActionTypes.SetPriority: {
       const newState = {...state};
-      const todo = state[action.payload];
+      const todo = state.todoList[action.payload];
       switch (todo.priority) {
         case 'red':
-          newState[action.payload].priority = 'green';
+          newState.todoList[action.payload].priority = 'green';
           break;
         case 'orange':
-          newState[action.payload].priority = 'red';
+          newState.todoList[action.payload].priority = 'red';
           break;
         case 'green':
-          newState[action.payload].priority = 'orange';
+          newState.todoList[action.payload].priority = 'orange';
       }
       return newState;
     }
@@ -103,6 +124,51 @@ export function reducer(state = initialState, action: TodoActions.Actions): Todo
         ...state,
         todoList: [],
         error: action.payload,
+      };
+    }
+
+    case TodoActions.TodoActionTypes.CreateTodoSuccess: {
+      return {
+        ...state,
+        todoList: [...state.todoList, action.payload],
+        currentItemId: action.payload.id,
+        error: ''
+      };
+    }
+
+    case TodoActions.TodoActionTypes.CreateTodoFail: {
+      return {
+        ...state,
+        error: action.payload
+      };
+    }
+
+    case TodoActions.TodoActionTypes.UpdateTodoSuccess: {
+      const updatedTodoList = state.todoList.map(
+        item => action.payload.id === item.id ? action.payload : item);
+      return {
+        ...state,
+        todoList: updatedTodoList,
+        error: ''
+      };
+    }
+
+    case TodoActions.TodoActionTypes.UpdateTodoFail: {
+      return {
+        ...state,
+        todoList: state.todoList,
+        error: action.payload
+      };
+    }
+
+    case TodoActions.TodoActionTypes.TogglePanel: {
+      return {
+        ...state,
+        currentItemId: (action.payload === null) ? null : action.payload,
+        error: '',
+        allOf: !state.allOf,
+        buttonText: (action.payload === null) ? 'Add' : 'Update',
+        showPanel: !state.showPanel
       };
     }
 

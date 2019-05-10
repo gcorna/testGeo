@@ -25,7 +25,7 @@ export class TodoItemComponent implements OnInit {
   ngOnInit() {}
 
   editTodo() {
-    this.store.dispatch(new TodoActions.EditTodo(this.index));
+    this.store.dispatch(new TodoActions.TogglePanel(this.index));
   }
 
   togglePriority() {

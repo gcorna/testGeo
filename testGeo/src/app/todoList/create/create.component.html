@@ -1,15 +1,17 @@
 <mat-card @fadeIn>
-  <p>
-    <mat-form-field class="full-width">
-      <input matInput placeholder="Title" #title>
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field class="full-width">
-      <textarea matInput placeholder="Description" #description></textarea>
-    </mat-form-field>
-  </p>
-  <p class="right">
-    <button mat-flat-button color="primary" (click)="addTodo(title.value, description.value)">{{buttonText}}</button>
-  </p>
+  <form [formGroup]="todoForm">
+    <p>
+      <mat-form-field class="full-width">
+        <input matInput type="text" formControlName="title" placeholder="Title" value="{{title}}" id="title">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field class="full-width">
+        <textarea matInput placeholder="Description" formControlName="description" value="{{description}}" id="description"></textarea>
+      </mat-form-field>
+    </p>
+    <p class="right">
+      <button mat-flat-button color="primary" (click)="addTodo()">{{buttonText}}</button>
+    </p>
+</form>
 </mat-card>

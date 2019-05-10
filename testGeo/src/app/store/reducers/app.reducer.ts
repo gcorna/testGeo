@@ -32,7 +32,6 @@ export function appReducer(state: State, action: AppActions.Actions): State {
   switch (action.type) {
 
     case AppActions.TOGGLE_FORM: {
-      console.log(action.payload);
       return {...state};
     }
   }

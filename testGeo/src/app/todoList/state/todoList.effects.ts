@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError, tap, switchMap } from 'rxjs/operators';
 
 import { TodoListService } from '../../services/todo-list.service';
-import { TodoList } from '../../models';
+import { TodoList, Todo } from '../../models';
 
 /* NgRx */
 import { Action } from '@ngrx/store';
@@ -28,29 +28,36 @@ export class TodoEffects {
     )
   );
 
-//   @Effect()
-//   updateTodo$: Observable<Action> = this.actions$.pipe(
-//     ofType(todoListActions.UPDATE_TODO),
-//     map((action: todoListActions.UpdateTodo) => action.payload),
-//     mergeMap((todo: Todo) =>
-//       this.todoListService.updateTodo(todo).pipe(
-//         map(updatedTodo => (new todoListActions.UpdateTodoSuccess(updatedTodo))),
-//         catchError(err => of(new todoListActions.UpdateTodoFail(err)))
-//       )
-//     )
-//   );
+  @Effect()
+  updateTodo$: Observable<Action> = this.actions$.pipe(
+    ofType(todoListActions.TodoActionTypes.UpdateTodo),
+    map((action: todoListActions.UpdateTodo) => action.payload),
+    mergeMap((todo: Todo) =>
+      this.todoListService.updateTodo(todo).pipe(
+        switchMap(updatedTodo => [
+          new todoListActions.UpdateTodoSuccess(updatedTodo),
+          new todoListActions.TogglePanel(null)
+        ]),
+        catchError(err => of(new todoListActions.UpdateTodoFail(err)))
+      )
+    )
+  );
 
-  // @Effect()
-  // createTodo$: Observable<Action> = this.actions$.pipe(
-  //   ofType(todoListActions.ADD_TODO),
-  //   map((action: todoListActions.AddTodo) => action.payload),
-  //   mergeMap((todo: Todo) =>
-  //     this.todoListService.createTodo(todo).pipe(
-  //       map((newTodo: Todo) => (new todoListActions.AddTodoSucces(newTodo))),
-  //       catchError(err => of(new todoListActions.AddTodoFail(err)))
-  //     )
-  //   )
-  // );
+  @Effect()
+  createTodo$: Observable<Action> = this.actions$.pipe(
+    ofType(todoListActions.TodoActionTypes.CreateTodo),
+    map((action: todoListActions.CreateTodo) => action.payload),
+    mergeMap( (todo: Todo) =>
+      this.todoListService.createTodo(todo).pipe(
+        switchMap((newTodo: Todo) => [
+          new todoListActions.CreateTodoSuccess(newTodo),
+          new todoListActions.TogglePanel(null)
+        ]),
+        tap(() => (new todoListActions.TogglePanel(null))),
+        catchError(err => of(new todoListActions.CreateTodoFail(err)))
+      )
+    )
+  );
 
   @Effect()
   deleteProduct$: Observable<Action> = this.actions$.pipe(

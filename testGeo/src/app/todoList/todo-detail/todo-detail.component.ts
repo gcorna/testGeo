@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { State } from '../../state/app.state';
-import * as TodoActions from '../state/todo.actions';
-import { Todo, TodoList } from 'src/app/models';
+import { Todo } from 'src/app/models';
 import { ActivatedRoute } from '@angular/router';
+import { TodoListState } from '../state/todo.reducer';
 
 @Component({
   selector: 'app-todo-detail',
@@ -20,7 +20,6 @@ export class TodoDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe( params => { this.index = +params['id']; } );
-    // this.store.select('todoList').subscribe((data: TodoList) => this.todo = data[this.index]);
-
+    this.store.select('todoList').subscribe((todoList: TodoListState) => this.todo = todoList.todoList[this.index]);
   }
 }

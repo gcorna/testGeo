@@ -3,9 +3,9 @@ import { Todo, TodoList } from '../../models';
 
 export enum TodoActionTypes {
     InitializeCurrentTodo = '[Todo] Initialize current Todo',
-    AddTodo = '[Todo] Add Todo',
-    AddTodoSucces = '[Todo] Add Todo success',
-    AddTodoFail = '[Todo] Add Todo fail',
+    CreateTodo = '[Todo] Create Todo',
+    CreateTodoSuccess = '[Todo] Create Todo success',
+    CreateTodoFail = '[Todo] Create Todo fail',
     RemoveTodo = '[Todo] Remove Todo',
     RemoveTodoSucces = '[Todo] Remove Todo success',
     RemoveTodoFail = '[Todo] Remove Todo fail',
@@ -18,26 +18,27 @@ export enum TodoActionTypes {
     UpdateTodo = '[Todo] Update TodoList',
     UpdateTodoFail = '[Todo] Update TodoList Fail',
     UpdateTodoSuccess = '[Todo] Update TodoList Success',
-    ToggleAddTodo = '[Todo] Toggle Add Todo'
+    ToggleAddTodo = '[Todo] Toggle Add Todo',
+    TogglePanel = '[Todo] Toggle Panel'
 }
 
 export class InitializeCurrentTodo implements Action {
     readonly type = TodoActionTypes.InitializeCurrentTodo;
 }
 
-export class AddTodo implements Action {
-    readonly type = TodoActionTypes.AddTodo;
+export class CreateTodo implements Action {
+    readonly type = TodoActionTypes.CreateTodo; // Create
     constructor(public payload: Todo) { }
 }
 
-export class AddTodoSucces implements Action {
-    readonly type = TodoActionTypes.AddTodoSucces;
-    constructor(public payload: number) { }
+export class CreateTodoSuccess implements Action {
+    readonly type = TodoActionTypes.CreateTodoSuccess;
+    constructor(public payload: Todo) { }
 }
 
-export class AddTodoFail implements Action {
-    readonly type = TodoActionTypes.AddTodoFail;
-    constructor(public payload: number) { }
+export class CreateTodoFail implements Action {
+    readonly type = TodoActionTypes.CreateTodoFail;
+    constructor(public payload: any) { }
 }
 
 export class RemoveTodo implements Action {
@@ -85,7 +86,8 @@ export class LoadTodoSuccess implements Action {
 }
 
 export class UpdateTodo implements Action {
-    readonly type = TodoActionTypes.UpdateTodo;
+    readonly type = TodoActionTypes.UpdateTodo;  // Update
+    constructor(public payload: Todo) { }
 }
 
 export class UpdateTodoFail implements Action {
@@ -103,10 +105,15 @@ export class ToggleAddTodo implements Action {
     constructor(public payload: Todo) { }
 }
 
+export class TogglePanel implements Action {
+    readonly type = TodoActionTypes.TogglePanel;
+    constructor(public payload: number | null) { }
+}
+
 export type Actions
-    = AddTodo
-    | AddTodoSucces
-    | AddTodoFail
+    = CreateTodo
+    | CreateTodoSuccess
+    | CreateTodoFail
     | RemoveTodo
     | RemoveTodoSucces
     | RemoveTodoFail
@@ -119,4 +126,5 @@ export type Actions
     | UpdateTodo
     | UpdateTodoFail
     | UpdateTodoSuccess
-    | ToggleAddTodo;
+    | ToggleAddTodo
+    | TogglePanel;

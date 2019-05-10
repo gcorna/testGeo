@@ -21,7 +21,6 @@ export class TodoListService {
    * @memberof TodoListService
    */
   getTodoList(): Observable<TodoList> {
-    console.log('getTodoList');
     return this.http.get<TodoList>(this.baseUrl)
     .pipe(
       tap(data => console.log(JSON.stringify(data))),
@@ -40,9 +39,13 @@ export class TodoListService {
   createTodo(todo: Todo): Observable<Todo> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     todo.id = null;
+    console.log(todo);
     return this.http.post<Todo>(this.baseUrl, todo, { headers: headers })
     .pipe(
-      tap(data => console.log('createTodo: ' + JSON.stringify(data))),
+      tap(data => {
+        console.log('createTodo: ' + JSON.stringify(data));
+
+      }),
       catchError(this.handleError)
     );
   }

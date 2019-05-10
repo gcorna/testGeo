@@ -12,10 +12,13 @@ import { MaterialModule } from './../material.module';
 import { reducer } from './state/todo.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { TodoEffects } from './state/todoList.effects';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild([]),
     MaterialModule,
     StoreModule.forFeature('todoList', reducer ),
