@@ -61,21 +61,5 @@ export class TodoListComponent implements OnInit {
     this.showPanel = true;
     this.buttonText = 'Update';
     this.store.dispatch(new TodoActions.EditTodo(todoId) );
-    console.log('openToEdit');
   }
 }
-
-// this.store.pipe(select(fromTodoList.getCurrentItemId)).subscribe(
-    //   todo => {
-    //     this.currentItemId = todo;
-    //     this.allOff = !this.allOff;
-    //     this.showPanel = !this.showPanel;
-    //     this.buttonText = action;
-    //     if (todo === null) {
-    //       // add todo
-    //       console.log('Add');
-    //     } else {
-    //       // update todo
-    //       console.log('Update');
-    //     }
-    //    });

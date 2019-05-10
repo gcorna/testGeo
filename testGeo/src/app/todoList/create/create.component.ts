@@ -66,9 +66,9 @@ export class CreateComponent implements OnInit, OnDestroy {
     this.componentActive = false;
   }
 
-  addTodo(title: string, description: string) {
+  addTodo() {
 
-    if (title !== '') {
+    if (this.todoForm.value.title !== '') {
 
       const newTodo = {...this.todo, ...this.todoForm.value};
       newTodo.status = false;
