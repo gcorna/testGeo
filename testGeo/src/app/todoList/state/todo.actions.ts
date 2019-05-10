@@ -2,7 +2,6 @@ import { Action } from '@ngrx/store';
 import { Todo, TodoList } from '../../models';
 
 export enum TodoActionTypes {
-    InitializeCurrentTodo = '[Todo] Initialize current Todo',
     CreateTodo = '[Todo] Create Todo',
     CreateTodoSuccess = '[Todo] Create Todo success',
     CreateTodoFail = '[Todo] Create Todo fail',
@@ -18,12 +17,7 @@ export enum TodoActionTypes {
     UpdateTodo = '[Todo] Update TodoList',
     UpdateTodoFail = '[Todo] Update TodoList Fail',
     UpdateTodoSuccess = '[Todo] Update TodoList Success',
-    ToggleAddTodo = '[Todo] Toggle Add Todo',
     TogglePanel = '[Todo] Toggle Panel'
-}
-
-export class InitializeCurrentTodo implements Action {
-    readonly type = TodoActionTypes.InitializeCurrentTodo;
 }
 
 export class CreateTodo implements Action {
@@ -53,11 +47,6 @@ export class RemoveTodoSucces implements Action {
 
 export class RemoveTodoFail implements Action {
     readonly type = TodoActionTypes.RemoveTodoFail;
-    constructor(public payload: number) { }
-}
-
-export class EditTodo implements Action {
-    readonly type = TodoActionTypes.EditTodo;
     constructor(public payload: number) { }
 }
 
@@ -100,11 +89,6 @@ export class UpdateTodoSuccess implements Action {
     constructor(public payload: Todo) { }
 }
 
-export class ToggleAddTodo implements Action {
-    readonly type = TodoActionTypes.ToggleAddTodo;
-    constructor(public payload: Todo) { }
-}
-
 export class TogglePanel implements Action {
     readonly type = TodoActionTypes.TogglePanel;
     constructor(public payload: number | null) { }
@@ -117,7 +101,6 @@ export type Actions
     | RemoveTodo
     | RemoveTodoSucces
     | RemoveTodoFail
-    | EditTodo
     | SetPriority
     | SetStatus
     | LoadTodo
@@ -126,5 +109,4 @@ export type Actions
     | UpdateTodo
     | UpdateTodoFail
     | UpdateTodoSuccess
-    | ToggleAddTodo
     | TogglePanel;

@@ -39,10 +39,6 @@ export class TodoListComponent implements OnInit {
 
   }
 
-  addTodo(todo: Todo) {
-    this.store.dispatch(new TodoActions.CreateTodo(todo));
-  }
-
   onRemove(index: number) {
     this.store.dispatch(new TodoActions.RemoveTodo(index) );
   }
@@ -54,12 +50,5 @@ export class TodoListComponent implements OnInit {
 
   openAddTodo() {
     this.store.dispatch(new TodoActions.TogglePanel(null) );
-  }
-
-  openToEdit(todoId: number) {
-    this.allOff = !this.allOff;
-    this.showPanel = true;
-    this.buttonText = 'Update';
-    this.store.dispatch(new TodoActions.EditTodo(todoId) );
   }
 }

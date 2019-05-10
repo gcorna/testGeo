@@ -10,6 +10,6 @@
 <app-create *ngIf="showPanel" (closePanel)="onClosePanel($event)"></app-create>
 <mat-card-content>
   <mat-selection-list role="list" *ngFor="let todo of todoList; let i = index">
-    <app-todo-item [allOff]="allOff" [todo]="todo" [index]="i" role="listitem" (remove)="onRemove($event)" (open)="openToEdit($event)"></app-todo-item>
+    <app-todo-item [allOff]="allOff" [todo]="todo" [index]="i" role="listitem" (remove)="onRemove($event)"></app-todo-item>
   </mat-selection-list>
 </mat-card-content>

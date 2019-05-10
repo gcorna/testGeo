@@ -61,16 +61,6 @@ export function reducer(state = initialState, action: TodoActions.Actions): Todo
 
   switch (action.type) {
 
-    // case TodoActions.TodoActionTypes.AddTodo: {
-    //   action.payload.id = action.payload.id === null ? state.todoList.length : action.payload.id;
-    //   return {
-    //     ...state,
-    //     todoList: [action.payload, ...state.todoList],
-    //     currentItemId: action.payload.id,
-    //     error: ''
-    //   };
-    // }
-
     case TodoActions.TodoActionTypes.RemoveTodo: {
       const newTodoList = [...state.todoList.slice(0, action.payload), ...state.todoList.slice(action.payload + 1)];
       return {
