@@ -4,6 +4,13 @@ import { Todo, TodoList } from '../models';
 import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, of, throwError } from 'rxjs';
 
+/**
+ * TodoListService
+ * Service for retrieving data with http requests
+ *
+ * @export
+ * @class TodoListService
+ */
 @Injectable( {
   providedIn: 'root'
 })
@@ -30,7 +37,7 @@ export class TodoListService {
 
   /**
    * createTodo
-   * Create a todo
+   * Create a todo in the backend
    *
    * @param {Todo} todo
    * @returns {Observable<Todo>}
@@ -48,7 +55,7 @@ export class TodoListService {
 
   /**
    * updateTodo
-   * Updates a Todo
+   * Updates a Todo in the backend
    *
    * @param {Todo} todo
    * @returns {Observable<Todo>}
@@ -67,7 +74,7 @@ export class TodoListService {
 
   /**
    * deleteTodo
-   * Deletes a Todo
+   * Deletes a Todo in the backend
    *
    * @param {number} todoId
    * @returns {Observable<{}>}

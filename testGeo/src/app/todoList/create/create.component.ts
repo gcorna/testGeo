@@ -9,13 +9,25 @@ import * as TodoActions from '../state/todo.actions';
 import * as fromTodoList from '../state/todo.reducer';
 import { Todo } from 'src/app/models';
 
-export const FADEIN_ANIMATION = trigger('fadeIn', [
+/**
+ * Animation for the edit form
+ */
+const FADEIN_ANIMATION = trigger('fadeIn', [
   transition(':enter', [
     style({ opacity: 0 }),
     animate('500ms', style({ opacity: 1 }))
   ])
 ]);
 
+/**
+ * Create component
+ * Handle the form to edit or create a todo
+ *
+ * @export
+ * @class CreateComponent
+ * @implements {OnInit}
+ * @implements {OnDestroy}
+ */
 @Component({
   selector: 'app-create',
   animations: [FADEIN_ANIMATION],
@@ -34,6 +46,13 @@ export class CreateComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<State>, public snackBar: MatSnackBar, private fb: FormBuilder) { }
 
+  /**
+   * ngOnInit
+   * Update the form data
+   * Create the formgroup
+   *
+   * @memberof CreateComponent
+   */
   ngOnInit(): void {
 
     this.store.pipe(select(fromTodoList.getButtonText)).subscribe(
@@ -62,17 +81,29 @@ export class CreateComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * onDestroy
+   * Destroy the component
+
+   * @memberof CreateComponent
+   */
   ngOnDestroy(): void {
     this.componentActive = false;
   }
 
-  addTodo() {
-
-    if (this.todoForm.value.title !== '') {
+  /**
+   * AddTodo
+   * Dispatch actions create or update
+   * or throw error message if the form is not valid
+   *
+   * @memberof CreateComponent
+   */
+  addTodo(): void {
+    if (this.todoForm.value.title !== null) {
 
       const newTodo = {...this.todo, ...this.todoForm.value};
       newTodo.status = false;
-      newTodo.priority = 'green';
+      newTodo.priority = 0;
 
       if (this.todoForm.value.id === null) {
         this.store.dispatch(new TodoActions.CreateTodo(newTodo));

@@ -3,10 +3,23 @@ import { Todo } from 'src/app/models/';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromRoot from '../../state/app.state';
 
+/**
+ * State
+ * Definition of the todoList slice of state
+ * @export
+ * @interface State
+ * @extends {fromRoot.State}
+ */
 export interface State extends fromRoot.State {
   todoList: TodoListState;
 }
 
+/**
+ * TodoListState
+ * Definition of the TodoListState
+ * @export
+ * @interface TodoListState
+ */
 export interface TodoListState {
   currentItemId: number | null;
   todoList: Todo[];
@@ -25,42 +38,76 @@ const initialState: TodoListState = {
   showPanel: false
 };
 
+/**
+ * Definition of slice
+ */
 const getTodoListFeatureState = createFeatureSelector<TodoListState>('todoList');
 
+/**
+ * getCurrentItemId selector
+ */
 export const getCurrentItemId = createSelector(
   getTodoListFeatureState,
   state => state.currentItemId
 );
 
+/**
+ * getTodos selector
+ */
 export const getTodos = createSelector(
   getTodoListFeatureState,
   state => state.todoList
 );
 
+/**
+ * getError selector
+ */
 export const getError = createSelector(
   getTodoListFeatureState,
   state => state.error
 );
 
+/**
+ * getAllOf selector
+ */
 export const getAllOf = createSelector(
   getTodoListFeatureState,
   state => state.allOf
 );
 
+/**
+ * getButtonText selector
+ */
 export const getButtonText = createSelector(
   getTodoListFeatureState,
   state => state.buttonText
 );
 
+/**
+ * getShowPanel selector
+ */
 export const getShowPanel = createSelector(
   getTodoListFeatureState,
   state => state.showPanel
 );
 
+/**
+ * Reducer
+ * Reducer for the todolist state
+ *
+ * @export
+ * @param {*} [state=initialState]
+ * @param {TodoActions.Actions} action
+ * @returns {TodoListState}
+ */
 export function reducer(state = initialState, action: TodoActions.Actions): TodoListState {
 
   switch (action.type) {
 
+    /**
+     * RemoveTodo
+     * payload is the item Id
+     */
     case TodoActions.TodoActionTypes.RemoveTodo: {
       const newTodoList = [...state.todoList.slice(0, action.payload), ...state.todoList.slice(action.payload + 1)];
       return {
@@ -71,23 +118,24 @@ export function reducer(state = initialState, action: TodoActions.Actions): Todo
       };
     }
 
+    /**
+     * SetPriority
+     * Increase priority
+    */
     case TodoActions.TodoActionTypes.SetPriority: {
+      let priority = state.todoList[action.payload].priority;
+      priority === 2 ? priority = 0 : priority++;
       const newState = {...state};
-      const todo = state.todoList[action.payload];
-      switch (todo.priority) {
-        case 'red':
-          newState.todoList[action.payload].priority = 'green';
-          break;
-        case 'orange':
-          newState.todoList[action.payload].priority = 'red';
-          break;
-        case 'green':
-          newState.todoList[action.payload].priority = 'orange';
-      }
+      newState.todoList[action.payload].priority = priority;
       return newState;
     }
 
-    case TodoActions.TodoActionTypes.SetStatus: { // Move item down the list if crossed out or on top if uncrossed
+    /**
+     * SetStatus
+     * Set status of an item to done and
+     * move it down the list if crossed out or on top if uncrossed
+    */
+    case TodoActions.TodoActionTypes.SetStatus: {
       const newState = {...state};
       newState.todoList[action.payload].status = !newState.todoList[action.payload].status;
       const item = newState.todoList[action.payload];
@@ -101,6 +149,10 @@ export function reducer(state = initialState, action: TodoActions.Actions): Todo
       return newState;
     }
 
+    /**
+     * LoadTodoSuccess
+     *
+     */
     case TodoActions.TodoActionTypes.LoadTodoSuccess: {
       return {
         ...state,
@@ -109,6 +161,9 @@ export function reducer(state = initialState, action: TodoActions.Actions): Todo
       };
     }
 
+    /**
+     * LoadTodoFail
+     */
     case TodoActions.TodoActionTypes.LoadTodoFail: {
       return {
         ...state,
@@ -117,6 +172,9 @@ export function reducer(state = initialState, action: TodoActions.Actions): Todo
       };
     }
 
+    /**
+     * CreateTodoSuccess
+     */
     case TodoActions.TodoActionTypes.CreateTodoSuccess: {
       return {
         ...state,
@@ -126,6 +184,9 @@ export function reducer(state = initialState, action: TodoActions.Actions): Todo
       };
     }
 
+    /**
+     * CreateTodoFail
+     */
     case TodoActions.TodoActionTypes.CreateTodoFail: {
       return {
         ...state,
@@ -133,6 +194,9 @@ export function reducer(state = initialState, action: TodoActions.Actions): Todo
       };
     }
 
+    /**
+     * UpdateTodoSuccess
+     */
     case TodoActions.TodoActionTypes.UpdateTodoSuccess: {
       const updatedTodoList = state.todoList.map(
         item => action.payload.id === item.id ? action.payload : item);
@@ -143,6 +207,9 @@ export function reducer(state = initialState, action: TodoActions.Actions): Todo
       };
     }
 
+    /**
+     * UpdateTodoFail
+     */
     case TodoActions.TodoActionTypes.UpdateTodoFail: {
       return {
         ...state,
@@ -151,6 +218,9 @@ export function reducer(state = initialState, action: TodoActions.Actions): Todo
       };
     }
 
+    /**
+     * TogglePanel
+     */
     case TodoActions.TodoActionTypes.TogglePanel: {
       return {
         ...state,

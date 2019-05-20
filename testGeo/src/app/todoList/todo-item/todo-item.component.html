@@ -4,7 +4,7 @@
   <span class="fill-remaining-space"></span>
   <span>
     <button mat-icon-button (click)="togglePriority()" [disabled]="allOff">
-      <mat-icon aria-label="Priority" [ngClass]="todo.priority">fiber_manual_record</mat-icon>
+      <mat-icon aria-label="Priority" [ngClass]="priority[todo.priority]">fiber_manual_record</mat-icon>
     </button>|
     <button mat-icon-button (click)="editTodo()" [disabled]="allOff">
       <mat-icon aria-label="Edit Todo">edit</mat-icon>

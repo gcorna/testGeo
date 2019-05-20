@@ -4,6 +4,13 @@ import { Store, select } from '@ngrx/store';
 import * as TodoActions from '../state/todo.actions';
 import * as fromTodoList from '../state/todo.reducer';
 
+/**
+ * TodoListComponent
+ *
+ * @export
+ * @class TodoListComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
@@ -12,10 +19,46 @@ import * as fromTodoList from '../state/todo.reducer';
 
 export class TodoListComponent implements OnInit {
 
+  /**
+   * todoList
+   * Array of all the todos
+   *
+   * @type {TodoList}
+   * @memberof TodoListComponent
+   */
   todoList: TodoList;
+  /**
+   * showPanel
+   * Boolean to control the visibility of the form panel
+   *
+   * @type {boolean}
+   * @memberof TodoListComponent
+   */
   showPanel: boolean;
+  /**
+   * buttonText
+   * Content in the submit button of the form
+   * value depends of the action add or update todo
+   *
+   * @type {string}
+   * @memberof TodoListComponent
+   */
   buttonText: string;
+  /**
+   * allOff
+   * Boolean to desable all the todos
+   *
+   * @type {boolean}
+   * @memberof TodoListComponent
+   */
   allOff: boolean;
+  /**
+   * currentItemId
+   * Id of the item currently edited
+   *
+   * @type {number}
+   * @memberof TodoListComponent
+   */
   currentItemId: number;
 
   constructor(private store: Store<fromTodoList.State>) {
@@ -24,6 +67,12 @@ export class TodoListComponent implements OnInit {
     .subscribe((todoList: TodoList) => this.todoList = todoList);
   }
 
+  /**
+   * ngOnInit
+   * Initialize the properties
+   *
+   * @memberof TodoListComponent
+   */
   ngOnInit() {
     this.store.pipe(select(fromTodoList.getTodos)).subscribe(
       todos => this.todoList = todos
@@ -38,15 +87,23 @@ export class TodoListComponent implements OnInit {
     );
   }
 
+  /**
+   * onRemove
+   * Action to delete a todo
+   *
+   * @param {number} index
+   * @memberof TodoListComponent
+   */
   onRemove(index: number) {
     this.store.dispatch(new TodoActions.RemoveTodo(index) );
   }
 
-  onClosePanel() {
-    this.allOff = !this.allOff;
-    this.showPanel = false;
-  }
-
+  /**
+   * togglePanel
+   * Open or close the form panel
+   *
+   * @memberof TodoListComponent
+   */
   togglePanel() {
     this.store.dispatch(new TodoActions.TogglePanel(null) );
   }
